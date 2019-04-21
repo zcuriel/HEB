@@ -7,8 +7,6 @@ namespace HEB.NetGiphy.Data.Objects
         [Required]
         public int CategoryId { get; set; }
         [MaxLength(50)]
-        public string Name { get; set; }
-
-        public virtual Picture Picture { get; set; }
+        public string Name { get; set; }        
     }
 }

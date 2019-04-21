@@ -39,9 +39,9 @@ namespace HEB.NetGiphyA.Controllers
                     if (item != null)
                     {
                         model.Pictures.Add(new Picture()
-                        {
-                            FileName = getFileFromSourceUrl(item.BitlyGifUrl),
-                            SourceUrl = item.Images?.Downsized?.Url,
+                        {                            
+                            SourceUrl = item.Images?.OriginalStill?.Url,
+                            FileName = item.Images?.Downsized?.Url,
                             Size = Convert.ToInt32(item.Images?.Downsized?.Size),
                             Height = Convert.ToInt32(item.Images?.Downsized?.Height),
                             Width = Convert.ToInt32(item.Images?.Downsized?.Width)

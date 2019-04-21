@@ -60,12 +60,7 @@ namespace HEB.NetGiphyA
             // Serve bootstrap requests
             app.UseNodeModules(env.ContentRootPath);
             app.UseAuthentication();
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Demo}/{action=Index}/{id?}");
-            });
+            app.UseMvcWithDefaultRoute();
         }
     }
 }
