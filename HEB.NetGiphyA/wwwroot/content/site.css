@@ -1,0 +1,49 @@
+﻿body {
+    padding-top: 10px;
+    font-family: 'Bernard MT Condensed';
+    font-size: large;
+    letter-spacing: 2px;
+    background-image: url('/images/pattern4.jpg');
+    background-repeat: initial;
+    color: #0094ff;
+    text-shadow: 2px 1px black;
+}
+
+input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: none;    
+    color: white;
+}
+
+input[type=text]:focus {
+    background-color: #0094ff;
+}
+
+nav-link {
+    text-decoration: underline;
+}
+
+body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.h1cust {
+    font-family: Algerian;
+    padding-top: 75px;
+    font-size: 60px;
+    text-align: center;
+    word-spacing: 3px;
+    text-shadow: 4px 3px black;
+}
+
+.h2cust {
+    font-family: Algerian;
+    font-size: 35px;
+    text-align: center;
+    letter-spacing: 15px;
+    text-shadow: 4px 3px black;
+}

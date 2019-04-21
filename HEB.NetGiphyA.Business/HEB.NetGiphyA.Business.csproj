@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HEB.GiphyA.Connector\HEB.GiphyA.Connector.csproj" />
+    <ProjectReference Include="..\HEB.NetGiphyA.Data\HEB.NetGiphyA.Data.csproj" />
+  </ItemGroup>
+
+</Project>

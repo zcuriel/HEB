@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HEB.NetGiphyA", "HEB.NetGip
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HEB.GiphyA.Connector", "HEB.GiphyA.Connector\HEB.GiphyA.Connector.csproj", "{83AFD803-FE2C-418F-8D1D-86D1BA965AF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HEB.NetGiphyA.Data", "HEB.NetGiphyA.Data\HEB.NetGiphyA.Data.csproj", "{5B32AA75-17CB-4788-8A48-E9080D38A580}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HEB.NetGiphyA.Data", "HEB.NetGiphyA.Data\HEB.NetGiphyA.Data.csproj", "{5B32AA75-17CB-4788-8A48-E9080D38A580}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HEB.NetGiphyA.Business", "HEB.NetGiphyA.Business\HEB.NetGiphyA.Business.csproj", "{3154E88F-8092-4A11-88BD-256ADF6D5843}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{5B32AA75-17CB-4788-8A48-E9080D38A580}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B32AA75-17CB-4788-8A48-E9080D38A580}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B32AA75-17CB-4788-8A48-E9080D38A580}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3154E88F-8092-4A11-88BD-256ADF6D5843}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3154E88F-8092-4A11-88BD-256ADF6D5843}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3154E88F-8092-4A11-88BD-256ADF6D5843}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3154E88F-8092-4A11-88BD-256ADF6D5843}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

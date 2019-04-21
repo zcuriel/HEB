@@ -5,8 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="wwwroot\" />
+    <Folder Include="Common\" />
+    <Folder Include="wwwroot\content\" />
+    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,7 +19,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HEB.NetGiphyA.Business\HEB.NetGiphyA.Business.csproj" />
     <ProjectReference Include="..\HEB.NetGiphyA.Data\HEB.NetGiphyA.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Pages\_Layout.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Pages\_ViewImports.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Pages\_ViewStart.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
   </ItemGroup>
     
 

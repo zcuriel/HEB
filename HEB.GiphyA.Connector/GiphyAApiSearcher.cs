@@ -11,6 +11,7 @@ namespace GiphyA.Connector
     {
         public static GiphyASearchResult GetImagesByCriteria(string searchCriteria)
         {
+            if (string.IsNullOrEmpty(searchCriteria)) return null;
             // Call the API with the search criteria
             var response = ProcessSearch(searchCriteria).GetAwaiter().GetResult();
             // Call the API for second time in case of unexpected error ocurred in the first try
@@ -19,8 +20,7 @@ namespace GiphyA.Connector
         }
 
         private static async Task<GiphyASearchResult> ProcessSearch(string searchCriteria)
-        {
-            
+        {            
             var gifSearcher = new GetterGiphyAApi();
             return await gifSearcher.GetGifImagesByCriteriaAsync(searchCriteria);            
         }

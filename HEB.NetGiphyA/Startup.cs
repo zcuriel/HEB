@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HEB.NetGiphyA.Business.Handlers;
+using HEB.NetGiphyA.Business.Interfaces;
 using HEB.NetGiphyA.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -28,6 +30,8 @@ namespace HEB.NetGiphyA
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            // Registering app services
+            services.AddSingleton<IGiphyASearchService, GiphyASearchService>();
             // Azure NET Core Authentication Default settings
             services.AddAuthentication(options =>
             {
@@ -43,7 +47,8 @@ namespace HEB.NetGiphyA
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, 
+                                IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -55,7 +60,12 @@ namespace HEB.NetGiphyA
             // Serve bootstrap requests
             app.UseNodeModules(env.ContentRootPath);
             app.UseAuthentication();
-            app.UseMvcWithDefaultRoute();            
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Demo}/{action=Index}/{id?}");
+            });
         }
     }
 }
