@@ -32,6 +32,8 @@ namespace HEB.NetGiphyA
         {
             // Registering app services
             services.AddSingleton<IGiphyASearchService, GiphyASearchService>();
+            services.AddScoped<IPictureService, PictureService>();
+            services.AddScoped<ICategoryService, CategoryService>();
             // Azure NET Core Authentication Default settings
             services.AddAuthentication(options =>
             {
@@ -42,7 +44,7 @@ namespace HEB.NetGiphyA
                 _configuration.Bind("AzureAD", options);
             })
             .AddCookie();
-            //services.AddDbContext<NetGiphyADbContext>(options => options.UseSqlServer(_configuration.GetConnectionString("NetGiphyADb")));
+            services.AddDbContext<NetGiphyADbContext>(options => options.UseSqlServer(_configuration.GetConnectionString("NetGiphyADb")));
             services.AddMvc();
         }
 

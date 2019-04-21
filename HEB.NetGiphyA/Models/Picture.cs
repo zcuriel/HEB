@@ -8,6 +8,7 @@ namespace HEB.NetGiphyA.Models
     public class Picture
     {
         public string Name { get; set; }
+        public string Description { get; set; }
         public string FileName { get; set; }
         public string SourceUrl { get; set; }
         public int Height { get; set; }

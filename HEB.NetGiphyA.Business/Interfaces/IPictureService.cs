@@ -5,32 +5,33 @@ using System.Text;
 
 namespace HEB.NetGiphyA.Business.Interfaces
 {
-    public interface ICategoryService
+    public interface IPictureService
     {
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="userEmail"></param>
+        /// <param name="userId"></param>
         /// <returns></returns>
-        IEnumerable<Category> GetCategoriesByUser(string userEmail);
+        IEnumerable<Picture> GetAllGifsByUser(string userId);
 
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="userId"></param>
         /// <param name="categoryId"></param>
         /// <returns></returns>
-        Category GetCategoryById(int categoryId);
+        IEnumerable<Picture> GetAllGifsByUserAndCategory(string userId, int categoryId);
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="category"></param>
-        void AddEditCategory(Category category);
+        /// <param name="picture"></param>
+        void AddEditGifAnimatedToDB(Picture picture);
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="category"></param>
-        void DeleteCategory(Category category);
+        /// <param name="picture"></param>
+        void DeleteGifAnimetedFromDB(Picture picture);
     }
 }

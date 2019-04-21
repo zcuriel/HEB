@@ -1,11 +1,13 @@
 ﻿using HEB.NetGiphyA.Business.Interfaces;
 using HEB.NetGiphyA.Models;
 using HEB.NetGiphyA.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
 namespace HEB.NetGiphyA.Controllers
 {
+    [Authorize]
     public class SearchGifsController : Controller
     {
         private IGiphyASearchService _giphyAService;
@@ -17,7 +19,7 @@ namespace HEB.NetGiphyA.Controllers
         /// <summary>
         /// Search Index Controller
         /// </summary>
-        /// <returns> Index view</returns>
+        /// <returns> Index view</returns>        
         public IActionResult Index()
         {
             return View();
@@ -27,7 +29,7 @@ namespace HEB.NetGiphyA.Controllers
         /// Search the Animated Gifs from Giphy API
         /// </summary>
         /// <returns> Animated Gif collection</returns>        
-        [HttpGet]
+        [HttpGet]        
         public IActionResult SearchAnimatedGifs(string searchText, int searchLimit, string language)
         {
             SearchResultView model = new SearchResultView();
