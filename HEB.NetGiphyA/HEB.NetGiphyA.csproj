@@ -19,8 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HEB.NetGiphyA.Business\HEB.NetGiphyA.Business.csproj" />
     <ProjectReference Include="..\HEB.NetGiphyA.Data\HEB.NetGiphyA.Data.csproj" />
+    <ProjectReference Include="..\HEB.NetGiphyA.Business\HEB.NetGiphyA.Business.csproj" />    
   </ItemGroup>
 
   <ItemGroup>

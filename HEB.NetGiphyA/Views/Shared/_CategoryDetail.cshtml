@@ -2,11 +2,11 @@
 
 <section class="container">
     <div class="card">
-        <h3 class="card-heading">@Model.Name</h3>
-        <div class="card-body">
+        <h3 class="card-heading" style="text-shadow:none;">@Model.Name</h3>
+        <div class="card-body" style="text-shadow:none;">
             Description : @Model.Description
         </div>
-        <div class="card-footer">
+        <div class="card-footer" style="text-shadow:none;">
             <a class="btn btn-default" asp-action="AddEdit" asp-route-id="@Model.CategoryId">Edit</a>
             <a class="btn btn-default" asp-action="Delete" asp-route-id="@Model.CategoryId">Delete</a>            
         </div>

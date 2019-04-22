@@ -1,4 +1,4 @@
-﻿using HEB.NetGiphy.Data.Objects;
+﻿using HEB.NetGiphyA.Data.Objects;
 using HEB.NetGiphyA.Business.Interfaces;
 using System;
 using System.Collections.Generic;

@@ -11,7 +11,7 @@ using System;
 namespace HEB.NetGiphyA.Data.Migrations
 {
     [DbContext(typeof(NetGiphyADbContext))]
-    [Migration("20190421204232_InitialCreate")]
+    [Migration("20190422000138_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,7 +21,7 @@ namespace HEB.NetGiphyA.Data.Migrations
                 .HasAnnotation("ProductVersion", "2.0.3-rtm-10026")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("HEB.NetGiphy.Data.Objects.Category", b =>
+            modelBuilder.Entity("HEB.NetGiphyA.Data.Objects.Category", b =>
                 {
                     b.Property<int>("CategoryId")
                         .ValueGeneratedOnAdd();
@@ -40,7 +40,7 @@ namespace HEB.NetGiphyA.Data.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("HEB.NetGiphy.Data.Objects.Picture", b =>
+            modelBuilder.Entity("HEB.NetGiphyA.Data.Objects.Picture", b =>
                 {
                     b.Property<int>("PictureId")
                         .ValueGeneratedOnAdd();
@@ -75,9 +75,9 @@ namespace HEB.NetGiphyA.Data.Migrations
                     b.ToTable("Pictures");
                 });
 
-            modelBuilder.Entity("HEB.NetGiphy.Data.Objects.Picture", b =>
+            modelBuilder.Entity("HEB.NetGiphyA.Data.Objects.Picture", b =>
                 {
-                    b.HasOne("HEB.NetGiphy.Data.Objects.Category", "Category")
+                    b.HasOne("HEB.NetGiphyA.Data.Objects.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId");
                 });

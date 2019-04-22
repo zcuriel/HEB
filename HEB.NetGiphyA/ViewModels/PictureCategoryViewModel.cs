@@ -1,4 +1,4 @@
-﻿using HEB.NetGiphy.Data.Objects;
+﻿using HEB.NetGiphyA.Models;
 using System.Collections.Generic;
 
 namespace HEB.NetGiphyA.ViewModels

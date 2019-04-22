@@ -1,4 +1,4 @@
-﻿using HEB.NetGiphy.Data.Objects;
+﻿using HEB.NetGiphyA.Data.Objects;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -31,6 +31,6 @@ namespace HEB.NetGiphyA.Business.Interfaces
         /// 
         /// </summary>
         /// <param name="category"></param>
-        void DeleteCategory(Category category);
+        void DeleteCategory(int categoryId);
     }
 }

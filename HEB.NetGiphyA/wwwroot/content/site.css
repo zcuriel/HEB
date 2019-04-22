@@ -5,7 +5,7 @@
     letter-spacing: 2px;
     background-image: url('/images/pattern4.jpg');
     background-repeat: initial;
-    color: #0094ff;
+    color: black;
     text-shadow: 2px 1px black;
 }
 
@@ -37,7 +37,7 @@ body-content {
     font-size: 60px;
     text-align: center;
     word-spacing: 3px;
-    text-shadow: 4px 3px black;
+    text-shadow: 4px 3px #0094ff;
 }
 
 .h2cust {
@@ -45,5 +45,5 @@ body-content {
     font-size: 35px;
     text-align: center;
     letter-spacing: 15px;
-    text-shadow: 4px 3px black;
+    text-shadow: 4px 3px #0094ff;
 }

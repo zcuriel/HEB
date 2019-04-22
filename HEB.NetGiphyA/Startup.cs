@@ -32,8 +32,8 @@ namespace HEB.NetGiphyA
         {
             // Registering app services
             services.AddSingleton<IGiphyASearchService, GiphyASearchService>();
-            services.AddScoped<IPictureService, PictureService>();
-            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddTransient<IPictureService, PictureService>();
+            services.AddTransient<ICategoryService, CategoryService>();
             // Azure NET Core Authentication Default settings
             services.AddAuthentication(options =>
             {
