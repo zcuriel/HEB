@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace HEB.NetGiphyA.ViewModels
 {
-    public class SearchResultView
+    public class SearchResultViewModel : ParentViewModel
     {
-        public SearchResultView()
+        public SearchResultViewModel()
         {
             Pictures = new List<Picture>();
         }

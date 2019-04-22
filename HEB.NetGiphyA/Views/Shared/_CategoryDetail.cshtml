@@ -2,13 +2,21 @@
 
 <section class="container">
     <div class="card">
-        <h3 class="card-heading" style="text-shadow:none;">@Model.Name</h3>
-        <div class="card-body" style="text-shadow:none;">
-            Description : @Model.Description
+        <h3 class="card-header" style="text-shadow:none;">@Model.Name</h3>
+        <div class="card-body" style="text-shadow:none;">            
+            <p class="card-text">Description: @Model.Description</p>
         </div>
         <div class="card-footer" style="text-shadow:none;">
-            <a class="btn btn-default" asp-action="AddEdit" asp-route-id="@Model.CategoryId">Edit</a>
-            <a class="btn btn-default" asp-action="Delete" asp-route-id="@Model.CategoryId">Delete</a>            
+            <a class="btn btn-secondary" asp-action="AddEdit" asp-route-id="@Model.CategoryId">Edit</a>
+            <input type="button" class="btn btn-secondary" onclick="confirmDeletion();" value="Delete" />
         </div>
     </div>
 </section>
+<script type="text/javascript">
+    function confirmDeletion() {
+        var retVal = confirm("Do you want to delete the category ?");
+        if (retVal == true) {
+            window.location = "/Category/Delete/" + @Model.CategoryId;            
+        }
+    }
+</script>

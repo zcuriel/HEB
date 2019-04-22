@@ -1,4 +1,4 @@
-﻿@model SearchResultView
+﻿@model SearchResultViewModel
 @{
     ViewBag.Title = "HEB - Animated Gifs";
 }
@@ -6,6 +6,15 @@
     <h2> Animated Gifs</h2>
 </div>
 <div class="container" style="border: 2px solid grey; padding-bottom:15px; padding-top:10px;">
+    @{
+        string alertType = "alert-danger";
+        @if (Model.IsError)
+        {
+            <div class="alert @alertType" role="alert">
+                @Model.Message
+            </div>
+        }
+    }
     <table>
         @{
             int cicle = Model.Pictures.Count / 5;
@@ -18,7 +27,7 @@
                         <img src="@itemArray[elem].FileName" height="200" width="200" /> <br />
                         <button type="button" class="btn btn-primary" onclick="window.open('@itemArray[elem++].SourceUrl')">View</button>
                         &nbsp;&nbsp;
-                        <button type="button" class="btn btn-primary" onclick="window.open('/SavePicture')" >Save</button>
+                        <button type="button" class="btn btn-primary" onclick="window.open('/SavePicture')">Save</button>
                     </td>
                     <td>
                         <img src="@itemArray[elem].FileName" height="200" width="200" /> <br />

@@ -8,15 +8,27 @@
 </div>
 
 <div class="container" style="border: 2px solid grey; padding-bottom:15px; padding-top:10px;">
-@if (Model.Categories == null || Model.Categories.Count == 0) {   
-    <h5 class="panel-footer" style="text-shadow:none; text-align:center;">No categories found.</h5>  
-}
+    @{
+        string alertType = "alert-danger";
+        @if (Model.IsError)
+        {
+            <div class="alert @alertType" role="alert">
+                @Model.Message
+            </div>
+        }
+    }
 
-@foreach (var category in Model.Categories)
-{
-    @Html.Partial("_CategoryDetail", category)<br />
-}
+    @if (Model.Categories == null || Model.Categories.Count == 0)
+    {
+        <h5 class="panel-footer" style="text-shadow:none; text-align:center;">No categories found.</h5>
+    }
+
+    @foreach (var category in Model.Categories)
+    {
+        @Html.Partial("_CategoryDetail", category)<br />
+    }
 </div>
 <div class="container">
     <a class="btn btn-primary" asp-controller="Category" asp-action="AddEdit">Add New Category</a>
 </div>
+

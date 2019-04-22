@@ -32,27 +32,37 @@ namespace HEB.NetGiphyA.Controllers
         [HttpGet]        
         public IActionResult SearchAnimatedGifs(string searchText, int searchLimit, string language)
         {
-            SearchResultView model = new SearchResultView();
-            var result = _giphyAService.GetGifsByCriteria(searchText, searchLimit, language);
-            if (result != null)
+            SearchResultViewModel model = new SearchResultViewModel();
+            try
             {
-                foreach (var item in result.Data)
+                var result = _giphyAService.GetGifsByCriteria(searchText, searchLimit, language);
+                if (result != null)
                 {
-                    if (item != null)
+                    foreach (var item in result.Data)
                     {
-                        model.Pictures.Add(new Picture()
-                        {                            
-                            SourceUrl = item.Images?.OriginalStill?.Url,
-                            FileName = item.Images?.Downsized?.Url,
-                            Size = Convert.ToInt32(item.Images?.Downsized?.Size),
-                            Height = Convert.ToInt32(item.Images?.Downsized?.Height),
-                            Width = Convert.ToInt32(item.Images?.Downsized?.Width)
-                        });
+                        if (item != null)
+                        {
+                            model.Pictures.Add(new Picture()
+                            {
+                                SourceUrl = item.Images?.OriginalStill?.Url,
+                                FileName = item.Images?.Downsized?.Url,
+                                Size = Convert.ToInt32(item.Images?.Downsized?.Size),
+                                Height = Convert.ToInt32(item.Images?.Downsized?.Height),
+                                Width = Convert.ToInt32(item.Images?.Downsized?.Width)
+                            });
+                        }
                     }
                 }
+                return View(model);
             }
-            return View(model);
+            catch (Exception)
+            {
+                model.IsError = true;
+                model.Message = "Unexpected error ocurred while retrieving Animated Gifs from Giphy Website. Try again later!";
+                return View(model);
+            } 
         }
+
 
         private string getFileFromSourceUrl(string urlSource)
         {

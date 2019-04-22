@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using HEB.NetGiphyA.Business.Interfaces;
+﻿using HEB.NetGiphyA.Business.Interfaces;
 using HEB.NetGiphyA.Models;
 using HEB.NetGiphyA.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -28,7 +25,7 @@ namespace HEB.NetGiphyA.Controllers
         [HttpGet]
         public IActionResult SearchAnimatedGifs(string searchText, int searchLimit, string language)
         {
-            SearchResultView model = new SearchResultView();
+            SearchResultViewModel model = new SearchResultViewModel();
             var result = _giphyAService.GetGifsByCriteria(searchText, searchLimit, language);
             if (result != null)
             {

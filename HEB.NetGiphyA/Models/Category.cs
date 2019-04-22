@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using HEB.NetGiphyA.ViewModels;
 using System.ComponentModel.DataAnnotations;
 
 namespace HEB.NetGiphyA.Models
 {
-    public class Category
+    public class Category : ParentViewModel
     {
-        public Category()
+        public Category() 
         {
             CategoryId = 0;
             Description = string.Empty;

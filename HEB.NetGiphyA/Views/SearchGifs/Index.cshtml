@@ -7,19 +7,21 @@
     <h2> Animated Gifs</h2>
 </div>
 <div class="container" style="border: 2px solid grey; padding-bottom:15px; padding-top:10px;">
-    <form method="get" asp-controller="SearchGifs" asp-action="SearchAnimatedGifs">
+    <form method="get" asp-controller="SearchGifs" asp-action="SearchAnimatedGifs" name="myForm" id="myForm">
         <div class="form-group">
-            <label for="searchtextInput">Search Text Input: </label>
-            <input type="text" class="form-control" name="searchtext" id="searchtext" aria-describedby="searchTextHelp" placeholder="Animated Gifs search input">
-            <small id="searchTextHelp" class="form-text text-muted">Search all the animated gifs you want!!.</small>
+            <label for="searchtextInput" style="text-shadow:none;">Search Text Input: </label>
+            <input type="text" class="form-control" name="searchtext" id="searchtext"
+                   aria-describedby="searchTextHelp" placeholder="Animated Gifs search input" />
+            <small id="searchTextHelp" class="form-text text-decoration-none" style="font-size: initial; text-shadow:none;">Search all the animated gifs you want!!.</small>
         </div>
         <div class="form-group">
-            <label for="numberResultsInput">Number of Results: </label> <br />
-            <select name="searchLimit" id="searchLimit" asp-items="@Html.GetEnumSelectList<SearchLimit>()"></select>
+            <label for="numberResultsInput" style="text-shadow:none;">Number of Results: </label> <br />
+            <select name="searchLimit" class="form-control" id="searchLimit"
+                    asp-items="@Html.GetEnumSelectList<SearchLimit>()"></select>
         </div>
         <div class="form-group">
-            <label for="languageInput">Language: </label> <br />
-            <select name="language" id="language">
+            <label for="languageInput" style="text-shadow:none;">Language: </label> <br />
+            <select class="form-control" name="language" id="language">
                 <option value="en">English</option>
                 <option value="es">Spanish</option>
                 <option value="fr">French</option>
@@ -27,7 +29,55 @@
         </div>
         <div class="form-group">
             <input type="reset" class="btn btn-primary" />
-            <input type="submit" class="btn btn-primary" />
-        </div>
+            <input type="button" class="btn btn-primary" value="Submit" onclick="validateForm();" />
+</div>
     </form>
 </div>
+
+<div id="exampleModalLive" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLiveLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLiveLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Woohoo, you're reading this text in a modal!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    //$(document).ready(function () {
+    //    $('#myBtn').click(function () {
+    //        valida2();
+    //    })
+    //});
+
+    function validateForm() {
+        if (document.myForm.searchtext.value == "") {
+            alert("Please provide the Gif Animated Text Input!");
+            document.myForm.searchtext.focus();
+            return false;
+        } else {
+            document.myForm.submit();
+        }
+        
+    }
+
+    //function valida2() {
+    //    if (document.myForm.searchtext.value == "") {
+    //        $('#exampleModalLive').modal('show');
+    //        document.myForm.searchtext.focus();            
+    //        return;
+    //    }
+    //    document.myForm.submit();
+    //}
+</script>

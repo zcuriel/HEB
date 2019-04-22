@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace HEB.NetGiphyA.ViewModels
 {
-    public class PictureCategoryViewModel
+    public class PictureCategoryViewModel : ParentViewModel
     {
         public PictureCategoryViewModel(Picture picture, IEnumerable<Category> categories)
         {
