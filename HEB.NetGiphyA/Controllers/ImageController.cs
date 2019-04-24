@@ -15,10 +15,16 @@ namespace HEB.NetGiphyA.Controllers
             _pictureService = pictureService;
         }
 
+        /// <summary>
+        /// Controller in charge to extract the picture object from the database and pass it onto the UI
+        /// </summary>
+        /// <param name="pictureId"></param>
+        /// <returns></returns>
         public FileStreamResult GetFile(string pictureId) 
         {
             try
             {
+                // Retrieve the picture from the database
                 var picture = _pictureService.GetPictureByUserAndId(GetUserEmail(), Convert.ToInt32(pictureId));
                 Stream imgStream = new MemoryStream(picture?.Image);
                 return new FileStreamResult(imgStream, Constants.GIPHY_CONTENT_TYPE);

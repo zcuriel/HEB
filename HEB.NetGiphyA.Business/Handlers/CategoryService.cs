@@ -16,6 +16,12 @@ namespace HEB.NetGiphyA.Business.Handlers
             _dbContext = dbContext;
         }
 
+
+        /// <summary>
+        /// EF implementation to (add new) / (update an existing) category for pictures
+        /// </summary>
+        /// <param name="category"></param>
+        /// <returns></returns>
         public int AddEditCategory(Category category)
         {
             if (category.CategoryId > 0)
@@ -31,17 +37,34 @@ namespace HEB.NetGiphyA.Business.Handlers
             return category.CategoryId;
         }
 
+
+        /// <summary>
+        /// EF implementation to delete an existing and empty category
+        /// </summary>
+        /// <param name="categoryId"></param>
         public void DeleteCategory(int categoryId)
         {
             _dbContext.Remove(new Category() { CategoryId = categoryId });
             _dbContext.SaveChanges();
         }
 
+
+        /// <summary>
+        /// EF implementation to get all the categories in the user profile  (user email is coming from Azure)
+        /// </summary>
+        /// <param name="userEmail"></param>
+        /// <returns></returns>
         public IEnumerable<Category> GetCategoriesByUser(string userEmail)
         {
             return _dbContext.Categories.Where(c => c.UserEmail == userEmail).OrderBy(c => c.Name);
         }
 
+
+        /// <summary>
+        /// EF implementation to get a specific category by Id
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <returns></returns>
         public Category GetCategoryById(int categoryId)
         {
             return _dbContext.Categories.Where(c => c.CategoryId == categoryId).FirstOrDefault();

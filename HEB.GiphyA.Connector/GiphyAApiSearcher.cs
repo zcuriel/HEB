@@ -1,7 +1,4 @@
-﻿using System;
-using System.Configuration;
-using System.Net.Http;
-using GiphyA.Connector.ApiHandlers;
+﻿using GiphyA.Connector.ApiHandlers;
 using GiphyA.Connector.Dtos;
 using System.Threading.Tasks;
 
@@ -9,6 +6,12 @@ namespace GiphyA.Connector
 {
     public class GiphyAApiSearcher
     {
+
+        /// <summary>
+        /// Public Static method manages to invoke up to twice the API if the first call failed for any reason
+        /// </summary>
+        /// <param name="searchCriteria"></param>
+        /// <returns></returns>
         public static GiphyASearchResult GetImagesByCriteria(string searchCriteria)
         {
             if (string.IsNullOrEmpty(searchCriteria)) return null;
@@ -19,6 +22,12 @@ namespace GiphyA.Connector
             return response;
         }
 
+
+        /// <summary>
+        /// Process the call to hit the API
+        /// </summary>
+        /// <param name="searchCriteria"></param>
+        /// <returns></returns>
         private static async Task<GiphyASearchResult> ProcessSearch(string searchCriteria)
         {            
             var gifSearcher = new GetterGiphyAApi();

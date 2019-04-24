@@ -27,7 +27,7 @@ namespace HEB.NetGiphyA.Controllers
         [HttpGet]
         public IActionResult SearchAnimatedGifs(string searchText, int searchLimit, string language)
         {
-            SearchResultViewModel model = new SearchResultViewModel();
+            PictureViewModel model = new PictureViewModel();
             var result = _giphyAService.GetGifsByCriteria(searchText, searchLimit, language);
             if (result != null)
             {

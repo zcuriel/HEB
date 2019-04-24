@@ -27,37 +27,36 @@ namespace HEB.NetGiphyA.Controllers
         }
 
         /// <summary>
-        /// Search the Animated Gifs from Giphy API
+        /// Display all the Giphy files saved in the database for the user
         /// </summary>
         /// <returns> Animated Gif collection</returns>
         [HttpGet]
         public IActionResult Index()
         {
-            var model = new MyGifsViewModel();
-            // First we obtain all the Picture Categoris
+            var model = new MyGifsViewModel();            
             try
             {
+                // First we obtain all the Categories the user have in its profile
                 var categories = _categoryService.GetCategoriesByUser(GetUserEmail());
                 if (categories != null)
                 {
-                    ObjView.PictureModel viewPictures = null;
+                    PictureViewModel viewPictures = null;
                     foreach (var item in categories)
                     {
-                        // Get the pics from that Category
+                        // Get the pics for every Category
                         var dbPictures = _pictureService.GetAllGifsByUserAndCategory(GetUserEmail(), item.CategoryId);
                         if (dbPictures != null)
                         {
-                            viewPictures = new ObjView.PictureModel();
+                            viewPictures = new PictureViewModel();
                             foreach (var item2 in dbPictures)
                             {
                                 viewPictures.Pictures.Add(ObjectTransformations.TransformDbtoViewObj(item2));
                             }
                         }
-                        // Add the Category --> Pics in that Category to the model
+                        // Add the Category --> Pics into the Category to the model
                         model.ListOfCategorizedPictures.Add(
-                            new ObjView.CategoryPicturesModel(ObjectTransformations.TransformDbtoViewObj(item), viewPictures));
+                            new CategoryPicturesViewModel(ObjectTransformations.TransformDbtoViewObj(item), viewPictures));
                     }
-
                 }
             }
             catch (System.Exception)
@@ -70,7 +69,7 @@ namespace HEB.NetGiphyA.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Controller method that gets together all the data from the picture which will be saved in the database
         /// </summary>
         /// <param name="sourceUrl"></param>
         /// <param name="fileName"></param>
@@ -89,6 +88,7 @@ namespace HEB.NetGiphyA.Controllers
                     Height = height,
                     Width = width
                 };
+                // Get all the categories previously saved by the user
                 var categories = _categoryService.GetCategoriesByUser(GetUserEmail());
                 var viewCategories = new List<ObjView.Category>();
 
@@ -109,6 +109,12 @@ namespace HEB.NetGiphyA.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Download the picture from the Giphy Website to save it in the database for the user
+        /// </summary>
+        /// <param name="sourceUrl"></param>
+        /// <returns></returns>
         private byte[] downloadFileFromUrl(string sourceUrl)
         {
             try
@@ -155,6 +161,12 @@ namespace HEB.NetGiphyA.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Controller which will save the physical picture file into the database
+        /// </summary>
+        /// <param name="picture"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult Save(ObjView.Picture picture)
         {
@@ -167,7 +179,7 @@ namespace HEB.NetGiphyA.Controllers
                     {
                         if (picture.CategoryId < 1)
                         {
-                            // Add the "GENERAL category for the first time for every user
+                            // Add the "GENERAL category to every user only the first time (when there's no category available)
                             picture.CategoryId = _categoryService.AddEditCategory(new ObjDb.Category
                             {
                                 CategoryId = picture.CategoryId,
@@ -202,6 +214,12 @@ namespace HEB.NetGiphyA.Controllers
             return View();
         }
 
+
+        /// <summary>
+        /// Controllers which will eliminate a picture not longer wanted from the user profile
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult Delete(string id)
         {
@@ -211,6 +229,7 @@ namespace HEB.NetGiphyA.Controllers
                 var model = new ObjView.Picture();
                 if (picId > 0)
                 {
+                    // Calling the DB context to delet the picture
                     _pictureService.DeleteGifAnimetedFromDB(picId);
                 }
                 ViewBag.IsError = false;
@@ -225,6 +244,12 @@ namespace HEB.NetGiphyA.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Controller in charge of displaying the picture to make it available for editing
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult Edit(string id)
         {
@@ -234,10 +259,11 @@ namespace HEB.NetGiphyA.Controllers
                 int picId = Convert.ToInt32(id);
                 if (picId > 0)
                 {
+                    // Get the picture by Id and User Email coming from Azure
                     model.Picture = ObjectTransformations.TransformDbtoViewObj(_pictureService.GetPictureByUserAndId(GetUserEmail(), picId));
                 }
+                // Existing Categories saved previously by the User
                 var categories = _categoryService.GetCategoriesByUser(GetUserEmail());                
-
                 if (categories != null)
                 {
                     // Convert DB object to View object
@@ -256,6 +282,12 @@ namespace HEB.NetGiphyA.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Controller in charge of saving the changes made to the picture on the UI
+        /// </summary>
+        /// <param name="picture"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult Edit(ObjView.Picture picture)
         {

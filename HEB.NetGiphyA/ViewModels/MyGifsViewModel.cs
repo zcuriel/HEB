@@ -1,5 +1,4 @@
-﻿using HEB.NetGiphyA.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace HEB.NetGiphyA.ViewModels
 {
@@ -7,9 +6,9 @@ namespace HEB.NetGiphyA.ViewModels
     {
         public MyGifsViewModel()
         {
-            ListOfCategorizedPictures = new List<CategoryPicturesModel>();
+            ListOfCategorizedPictures = new List<CategoryPicturesViewModel>();
         }
 
-        public List<CategoryPicturesModel> ListOfCategorizedPictures { get; set; }
+        public List<CategoryPicturesViewModel> ListOfCategorizedPictures { get; set; }
     }
 }

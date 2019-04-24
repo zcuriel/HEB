@@ -16,7 +16,9 @@ namespace HEB.NetGiphyA.ViewModels
         {
         }
 
+        // Picture to save into the database
         public Picture Picture { get; set; }
+        // Existing Categories on the profile user
         public List<Category> UserCategories { get; set; }
     }
 }

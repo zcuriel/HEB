@@ -16,6 +16,7 @@ namespace HEB.NetGiphyA.Controllers
         {
             _giphyAService = giphyAService;
         }
+
         /// <summary>
         /// Search Index Controller
         /// </summary>
@@ -32,7 +33,7 @@ namespace HEB.NetGiphyA.Controllers
         [HttpGet]        
         public IActionResult SearchAnimatedGifs(string searchText, int searchLimit, string language)
         {
-            SearchResultViewModel model = new SearchResultViewModel();
+            PictureViewModel model = new PictureViewModel();
             try
             {
                 var result = _giphyAService.GetGifsByCriteria(searchText, searchLimit, language);
@@ -60,22 +61,6 @@ namespace HEB.NetGiphyA.Controllers
                 model.Message = "Unexpected error ocurred while retrieving Animated Gifs from Giphy Website. Try again later!";
                 return View(model);
             } 
-        }
-
-
-        private string getFileFromSourceUrl(string urlSource)
-        {
-            string retStr = string.Empty;
-            if (!string.IsNullOrEmpty(urlSource) && !string.IsNullOrWhiteSpace(urlSource))
-            {
-                int lastIndexOf = urlSource.LastIndexOf("/");
-                if (lastIndexOf > 0)
-                {
-                    retStr = urlSource.Substring(++lastIndexOf);
-                }
-            }
-            return retStr;
-        }
-
+        }    
     }
 }

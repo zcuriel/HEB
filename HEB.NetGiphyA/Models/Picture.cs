@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HEB.NetGiphyA.Models
 {
-    public class Picture : ParentViewModel
+    public class Picture
     {
         public Picture()
         {

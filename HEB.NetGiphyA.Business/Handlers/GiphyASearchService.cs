@@ -7,6 +7,13 @@ namespace HEB.NetGiphyA.Business.Handlers
 {
     public class GiphyASearchService : IGiphyASearchService
     {
+
+        /// <summary>
+        /// Function which helps to build the QueryString to hit the Giphy API
+        /// </summary>
+        /// <param name="criteria"></param>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
         private void AddParamToSearchCriteria(StringBuilder criteria, string key, string value) {
             
             if ((!string.IsNullOrEmpty(value)) && (!string.IsNullOrWhiteSpace(value)))
@@ -19,6 +26,13 @@ namespace HEB.NetGiphyA.Business.Handlers
             }
         }
 
+
+        /// <summary>
+        /// Function which helps to build the QueryString to hit the Giphy API 
+        /// </summary>
+        /// <param name="criteria"></param>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
         private void AddParamToSearchCriteria(StringBuilder criteria, string key, int value)
         {
             if (value > 0)
@@ -31,6 +45,14 @@ namespace HEB.NetGiphyA.Business.Handlers
             }
         }
 
+
+        /// <summary>
+        /// Service Invokes the Giphy API call based on the criteria
+        /// </summary>
+        /// <param name="searchText"></param>
+        /// <param name="numResults"></param>
+        /// <param name="language"></param>
+        /// <returns></returns>
         public GiphyASearchResult GetGifsByCriteria(string searchText, int numResults, string language)
         {
             // Building the search criteria

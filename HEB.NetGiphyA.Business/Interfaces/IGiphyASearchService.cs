@@ -8,7 +8,7 @@ namespace HEB.NetGiphyA.Business.Interfaces
     public interface IGiphyASearchService
     {
         /// <summary>
-        /// GetGifsByCriteria   :   Call the Giphy API to retrive the picture that meets the search criteria
+        /// GetGifsByCriteria   :   Interface which interacts with Giphy API to retrive the pictures that meets the search criteria
         /// </summary>  
         /// <param name="searchText"></param>
         /// <param name="numResults"></param>

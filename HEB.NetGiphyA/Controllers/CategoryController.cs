@@ -1,5 +1,5 @@
 ﻿using HEB.NetGiphyA.Business.Interfaces;
-using HEB.NetGiphyA.ViewModels;
+using HEB.NetGiphyA.Util;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -19,37 +19,20 @@ namespace HEB.NetGiphyA.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Generic index controller for the categories in case in the future will be require
         /// </summary>
         /// <returns></returns>
         public IActionResult Index()
         {
-            CategoryViewModel model = new CategoryViewModel();
-            try
-            {
-                var results = _categoryService.GetCategoriesByUser(GetUserEmail());
-                if (results != null)
-                {
-                    foreach (var item in results)
-                    {
-                        model.Categories.Add(new ObjView.Category()
-                        {
-                            CategoryId = item.CategoryId,
-                            Name = item.Name,
-                            Description = item.Description
-                        });
-                    }
-                }
-                return View(model);
-            }
-            catch (Exception)
-            {
-                model.IsError = true;
-                model.Message = $"Unexpected error ocurred while retrieving list of categories for user: '{GetUserEmail()}'. Try again later!";
-                return View(model);
-            }
+            return View();
         }
 
+
+        /// <summary>
+        /// Controller that display the page for Add/Edit a category
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult AddEdit(string id = null)
         {
@@ -59,6 +42,7 @@ namespace HEB.NetGiphyA.Controllers
                 int categoryId = Convert.ToInt32(id);
                 if (categoryId > 0)
                 {
+                    // Edit a category (retrieve the object from the db)
                     var categoryDB = _categoryService.GetCategoryById(categoryId);
                     if (categoryDB != null)
                     {
@@ -77,6 +61,12 @@ namespace HEB.NetGiphyA.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Controller that invokes the category to be saved in the database
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         public IActionResult AddEdit(ObjView.Category model)
@@ -85,18 +75,13 @@ namespace HEB.NetGiphyA.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var catDb = new ObjDB.Category()
-                    {
-                        CategoryId = model.CategoryId,
-                        Name = model.Name,
-                        Description = model.Description,
-                        UserEmail = GetUserEmail()
-                    };
-
+                    var catDb = ObjectTransformations.TransformViewToDbObj(model);
+                    catDb.UserEmail = GetUserEmail();   // Azure user information
+                    // Add/Update category in the db
                     _categoryService.AddEditCategory(catDb);
                     ViewBag.IsError = "false";
                     ViewBag.Message = "Category added/updated sucessfully!";
-                    return RedirectToAction("Index","Picture");
+                    return RedirectToAction("Index", "Picture");
                 }
                 else
                 {
@@ -112,6 +97,12 @@ namespace HEB.NetGiphyA.Controllers
 
         }
 
+
+        /// <summary>
+        /// Controller that request the category to be deleted from the database
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult Delete(string id)
         {
@@ -122,16 +113,19 @@ namespace HEB.NetGiphyA.Controllers
                 if (categoryId > 0)
                 {
                     _categoryService.DeleteCategory(categoryId);
+                    ViewBag.IsError = false;
+                    ViewBag.Message = "Category deleted sucessfully!";
+                    return View();
+                } else
+                {
+                    return RedirectToAction(nameof(Index), "Picture");
                 }
-                ViewBag.IsError = false;
-                ViewBag.Message = "Category deleted sucessfully!";
-                return View();
             }
             catch (Exception)
             {
                 ViewBag.IsError = true;
                 ViewBag.Message = $"Unexpected error ocurred while Deleting the Category for user: '{GetUserEmail()}'. Try again later!";
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), "Picture");
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿@model SearchResultViewModel
+﻿@using HEB.NetGiphyA.Common
+@model PictureViewModel
 @{
     ViewBag.Title = "HEB - Animated Gifs";
 }
@@ -17,7 +18,7 @@
     }
     <table>
         @{
-            int cicle = Model.Pictures.Count / 5;
+            int cicle = Model.Pictures.Count / Constants.MAX_PIC_PER_ROW;
             int elem = 0;
             var itemArray = Model.Pictures.ToArray();
             for (int i = 0; i < cicle; i++)

@@ -8,12 +8,15 @@ using System.Threading.Tasks;
 
 namespace GiphyA.Connector.ApiHandlers
 {
+    /// <summary>
+    /// Execute the API call with the criteria provided
+    /// </summary>
     public class GetterGiphyAApi : IGetterGiphyAApi
     {
         public async Task<GiphyASearchResult> GetGifImagesByCriteriaAsync(string searchCriteria)
         {
             // Get the API Url
-            const string giphyKey = "a7FTUA54ydSRaqAM4Zo276nkEoKureI2";     // H-E-B APP KEY
+            const string giphyKey = "a7FTUA54ydSRaqAM4Zo276nkEoKureI2";     // H-E-B APP KEY -- Setup for the challenge
             const string apiUrl = "http://api.giphy.com/v1/gifs/search";    // API Call
 
             try

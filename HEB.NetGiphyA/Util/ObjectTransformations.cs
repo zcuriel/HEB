@@ -5,6 +5,12 @@ namespace HEB.NetGiphyA.Util
 {
     public static class ObjectTransformations
     {
+
+        /// <summary>
+        /// Transform a picture database object to a Category view Obj
+        /// </summary>
+        /// <param name="picture"></param>
+        /// <returns></returns>
         public static ViewObj.Picture TransformDbtoViewObj(DbObj.Picture picture)
         {
             ViewObj.Picture newPicture = null;
@@ -25,6 +31,12 @@ namespace HEB.NetGiphyA.Util
             return newPicture; 
         }
 
+
+        /// <summary>
+        /// Transform a category database object to a Category view Obj
+        /// </summary>
+        /// <param name="category"></param>
+        /// <returns></returns>
         public static ViewObj.Category TransformDbtoViewObj(DbObj.Category category)
         {
             ViewObj.Category newCategory = null;
@@ -41,6 +53,12 @@ namespace HEB.NetGiphyA.Util
             return newCategory;
         }
 
+
+        /// <summary>
+        /// Transform a picture view object to a Category EF Obj
+        /// </summary>
+        /// <param name="picture"></param>
+        /// <returns></returns>
         public static DbObj.Picture TransformViewToDbObj(ViewObj.Picture picture)
         {
             DbObj.Picture newPicture = null;
@@ -63,6 +81,12 @@ namespace HEB.NetGiphyA.Util
             return newPicture;
         }
 
+
+        /// <summary>
+        /// Transform a category view object to a Category EF Obj
+        /// </summary>
+        /// <param name="category"></param>
+        /// <returns></returns>
         public static DbObj.Category TransformViewToDbObj(ViewObj.Category category)
         {
             DbObj.Category newCategory = null;
