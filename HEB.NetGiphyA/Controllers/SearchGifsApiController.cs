@@ -1,6 +1,7 @@
 ﻿using HEB.NetGiphyA.Business.Interfaces;
 using HEB.NetGiphyA.Models;
 using HEB.NetGiphyA.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
@@ -8,6 +9,7 @@ using System;
 
 namespace HEB.NetGiphyA.Controllers
 {
+    [Authorize]
     [Route("api/searchagifs")]
     public class SearchGifsApiController : Controller
     {
@@ -37,7 +39,6 @@ namespace HEB.NetGiphyA.Controllers
                         {
                             FileName = getFileFromSourceUrl(item.BitlyGifUrl),
                             SourceUrl = item.BitlyGifUrl,
-                            Size = Convert.ToInt32(item.Images?.Downsized?.Size),
                             Height = Convert.ToInt32(item.Images?.Downsized?.Height),
                             Width = Convert.ToInt32(item.Images?.Downsized?.Width)                            
                         });

@@ -25,12 +25,12 @@ namespace HEB.NetGiphyA.Business.Interfaces
         /// 
         /// </summary>
         /// <param name="category"></param>
-        void AddEditCategory(Category category);
+        int AddEditCategory(Category category);
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="category"></param>
+        /// <param name="categoryId"></param>
         void DeleteCategory(int categoryId);
     }
 }

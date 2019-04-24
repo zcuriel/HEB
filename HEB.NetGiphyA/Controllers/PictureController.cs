@@ -1,10 +1,15 @@
 ﻿using HEB.NetGiphyA.Business.Interfaces;
-using PicDB = HEB.NetGiphyA.Data.Objects;
-using PicWeb = HEB.NetGiphyA.Models;
+using HEB.NetGiphyA.Common;
+using HEB.NetGiphyA.Util;
+using HEB.NetGiphyA.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
-using HEB.NetGiphyA.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using ObjDb = HEB.NetGiphyA.Data.Objects;
+using ObjView = HEB.NetGiphyA.Models;
 
 namespace HEB.NetGiphyA.Controllers
 {
@@ -12,10 +17,13 @@ namespace HEB.NetGiphyA.Controllers
     public class PictureController : UserInfoController
     {
         private IPictureService _pictureService;
+        private ICategoryService _categoryService;
 
-        public PictureController(IPictureService pictureService) : base()
+        public PictureController(IPictureService pictureService,
+            ICategoryService categoryService) : base()
         {
             _pictureService = pictureService;
+            _categoryService = categoryService;
         }
 
         /// <summary>
@@ -23,18 +31,251 @@ namespace HEB.NetGiphyA.Controllers
         /// </summary>
         /// <returns> Animated Gif collection</returns>
         [HttpGet]
-        public IActionResult Index([FromQuery] PicWeb.Picture picture)
+        public IActionResult Index()
         {
-            
-            //PictureCategory model = new PictureCategory(picture);
-            return View(picture);
+            var model = new MyGifsViewModel();
+            // First we obtain all the Picture Categoris
+            try
+            {
+                var categories = _categoryService.GetCategoriesByUser(GetUserEmail());
+                if (categories != null)
+                {
+                    ObjView.PictureModel viewPictures = null;
+                    foreach (var item in categories)
+                    {
+                        // Get the pics from that Category
+                        var dbPictures = _pictureService.GetAllGifsByUserAndCategory(GetUserEmail(), item.CategoryId);
+                        if (dbPictures != null)
+                        {
+                            viewPictures = new ObjView.PictureModel();
+                            foreach (var item2 in dbPictures)
+                            {
+                                viewPictures.Pictures.Add(ObjectTransformations.TransformDbtoViewObj(item2));
+                            }
+                        }
+                        // Add the Category --> Pics in that Category to the model
+                        model.ListOfCategorizedPictures.Add(
+                            new ObjView.CategoryPicturesModel(ObjectTransformations.TransformDbtoViewObj(item), viewPictures));
+                    }
+
+                }
+            }
+            catch (System.Exception)
+            {
+                ViewBag.IsError = true;
+                ViewBag.Message = $"Unexpected error ocurred while Retrieving the Pictures for each Category for user: '{GetUserEmail()}'. Try again later!";
+                return View(model);
+            }
+            return View(model);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sourceUrl"></param>
+        /// <param name="fileName"></param>
+        /// <param name="height"></param>
+        /// <param name="width"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult SavePicture(string sourceUrl, string fileName, int height, int width)
+        {
+            try
+            {
+                var picture = new ObjView.Picture
+                {
+                    SourceUrl = sourceUrl,
+                    FileName = fileName,
+                    Height = height,
+                    Width = width
+                };
+                var categories = _categoryService.GetCategoriesByUser(GetUserEmail());
+                var viewCategories = new List<ObjView.Category>();
+
+                if (categories != null)
+                {
+                    // Convert DB object to View object
+                    foreach (var item in categories)
+                    {
+                        viewCategories.Add(ObjectTransformations.TransformDbtoViewObj(item));
+                    }
+                }
+                var model = new PictureCategoryViewModel(picture, viewCategories);
+                return View(model);
+            }
+            catch (System.Exception)
+            {
+                return RedirectToAction("Index", "SearchGifsController");
+            }
+        }
+
+        private byte[] downloadFileFromUrl(string sourceUrl)
+        {
+            try
+            {
+                // Read the file from the web and save it eventually in the db
+                byte[] downloadedData;
+                // Download the picture from the Giphy Website
+                WebRequest req = WebRequest.Create(sourceUrl);
+                WebResponse resp = req.GetResponse();
+                Stream stream = resp.GetResponseStream();
+
+                //Download in chuncks
+                // 8k buffer is very optimal
+                byte[] buffer = new byte[8192];
+                //Download to memory
+                //Note: adjust the streams here to download directly to the hard drive
+                MemoryStream memStream = new MemoryStream();
+                int bytesRead;
+                while (true)
+                {
+                    //Try to read the data
+                    bytesRead = stream.Read(buffer, 0, buffer.Length);
+                    if (bytesRead == 0)
+                    {
+                        //Finished downloading
+                        break;
+                    }
+                    else
+                    {
+                        //Write the downloaded data
+                        memStream.Write(buffer, 0, bytesRead);
+                    }
+                }
+                //Convert the downloaded stream to a byte array
+                downloadedData = memStream.ToArray();
+                //Clean up
+                stream.Close();
+                memStream.Close();
+                return downloadedData;
+            }
+            catch (System.Exception)
+            {
+                return null;
+            }
         }
 
         [HttpPost]
-        public IActionResult Save([FromBody] PicWeb.Picture picture)
+        public IActionResult Save(ObjView.Picture picture)
         {
-            
-            return null;
+            try
+            {
+                if (picture != null)
+                {
+                    var downloadedData = downloadFileFromUrl(picture.SourceUrl);
+                    if (downloadedData != null)
+                    {
+                        if (picture.CategoryId < 1)
+                        {
+                            // Add the "GENERAL category for the first time for every user
+                            picture.CategoryId = _categoryService.AddEditCategory(new ObjDb.Category
+                            {
+                                CategoryId = picture.CategoryId,
+                                Name = Constants.DEFAULT_PIC_CATEGORY,
+                                Description = Constants.DEFAULT_PIC_CATEGORY,
+                                UserEmail = GetUserEmail()
+                            });
+                        }
+                        // Create the DB Picture object
+                        var newDbPic = new ObjDb.Picture
+                        {
+                            UserEmail = GetUserEmail(),
+                            CategoryId = picture.CategoryId,
+                            Name = picture.Name,
+                            Description = picture.Description,
+                            FileName = picture.FileName,
+                            SourceUrl = picture.SourceUrl,
+                            Height = picture.Height,
+                            Width = picture.Width,
+                            Image = downloadedData
+                        };
+                        // Save the img in the database
+                        _pictureService.AddGifAnimatedToDB(newDbPic);
+                        ViewBag.Message = "The Picture Has Been Saved Successfully in your Profile!";
+                    }
+                }
+            }
+            catch (System.Exception)
+            {
+                ViewBag.Message = "Unexpected error when saving the Picture in the Database. Try again later!";
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Delete(string id)
+        {
+            try
+            {
+                int picId = Convert.ToInt32(id);
+                var model = new ObjView.Picture();
+                if (picId > 0)
+                {
+                    _pictureService.DeleteGifAnimetedFromDB(picId);
+                }
+                ViewBag.IsError = false;
+                ViewBag.Message = "Category deleted sucessfully!";
+                return View("Common");
+            }
+            catch (Exception)
+            {
+                ViewBag.IsError = true;
+                ViewBag.Message = $"Unexpected error ocurred while Deleting the Category for user: '{GetUserEmail()}'. Try again later!";
+                return RedirectToAction(nameof(Index));
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Edit(string id)
+        {
+            PictureCategoryViewModel model = new PictureCategoryViewModel();
+            try
+            {
+                int picId = Convert.ToInt32(id);
+                if (picId > 0)
+                {
+                    model.Picture = ObjectTransformations.TransformDbtoViewObj(_pictureService.GetPictureByUserAndId(GetUserEmail(), picId));
+                }
+                var categories = _categoryService.GetCategoriesByUser(GetUserEmail());                
+
+                if (categories != null)
+                {
+                    // Convert DB object to View object
+                    foreach (var item in categories)
+                    {
+                        model.UserCategories.Add(ObjectTransformations.TransformDbtoViewObj(item));
+                    }
+                }
+                return View(model);
+            }
+            catch (Exception)
+            {
+                model.IsError = true;
+                model.Message = $"Unexpected error ocurred while Retrieving Category for user: '{GetUserEmail()}'. Try again later!";
+                return View(model);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Edit(ObjView.Picture picture)
+        {
+            try
+            {
+                if (picture != null && ModelState.IsValid)
+                {
+                    var newDbPic = ObjectTransformations.TransformViewToDbObj(picture);
+                    // Save the img in the database
+                    _pictureService.UpdateGifAnimatedToDB(newDbPic);
+                    ViewBag.Message = "The Picture Has Been Saved Successfully in your Profile!";
+                    return View("Common");
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            catch (System.Exception)
+            {
+                ViewBag.Message = "Unexpected error when saving the Picture in the Database. Try again later!";
+                return RedirectToAction(nameof(Index));
+            }            
         }
 
     }

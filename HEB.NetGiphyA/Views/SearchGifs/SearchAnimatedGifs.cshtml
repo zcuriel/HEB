@@ -3,9 +3,9 @@
     ViewBag.Title = "HEB - Animated Gifs";
 }
 <div class="row" style="padding-top:50px">
-    <h2> Animated Gifs</h2>
+    <h2> Animated Gifs Results</h2>
 </div>
-<div class="container" style="border: 2px solid grey; padding-bottom:15px; padding-top:10px;">
+<div class="container" style="padding-bottom:15px; padding-top:10px;">
     @{
         string alertType = "alert-danger";
         @if (Model.IsError)
@@ -24,33 +24,70 @@
             {
                 <tr>
                     <td>
-                        <img src="@itemArray[elem].FileName" height="200" width="200" /> <br />
-                        <button type="button" class="btn btn-primary" onclick="window.open('@itemArray[elem++].SourceUrl')">View</button>
-                        &nbsp;&nbsp;
-                        <button type="button" class="btn btn-primary" onclick="window.open('/SavePicture')">Save</button>
+                        <div class="card border-success mb-3" style="max-width: 15rem;">
+                            <div class="card-header bg-transparent border-success text-center">
+                                <button type="button" class="btn btn-primary" onclick="window.open('@itemArray[elem].SourceUrl')">View</button>
+                                <input type="button" class="btn btn-primary" 
+                                       onclick="savePicture('@itemArray[elem].SourceUrl','@itemArray[elem].FileName','@itemArray[elem].Height','@itemArray[elem].Width');" value="Save" />
+                            </div>
+                            <div class="card-body text-success">
+                                <img src="@itemArray[elem++].FileName" height="200" width="200" />
+                            </div>
+                            <div class="card-footer bg-transparent border-success text-center">@elem</div>
+                        </div>
                     </td>
                     <td>
-                        <img src="@itemArray[elem].FileName" height="200" width="200" /> <br />
-                        <button type="button" class="btn btn-primary" onclick="window.open('@itemArray[elem++].SourceUrl')">View</button>
-                        &nbsp;&nbsp;
-                        <a>Save</a>
+                        <div class="card border-success mb-3" style="max-width: 15rem;">
+                            <div class="card-header bg-transparent border-success text-center">
+                                <button type="button" class="btn btn-primary" onclick="window.open('@itemArray[elem].SourceUrl')">View</button>
+                                <input type="button" class="btn btn-primary"
+                                       onclick="savePicture('@itemArray[elem].SourceUrl','@itemArray[elem].FileName','@itemArray[elem].Height','@itemArray[elem].Width');" value="Save" />
+                            </div>
+                            <div class="card-body text-success">
+                                <img src="@itemArray[elem++].FileName" height="200" width="200" />
+                            </div>
+                            <div class="card-footer bg-transparent border-success text-center">@elem</div>
+                        </div>
                     </td>
                     <td>
-                        <img src="@itemArray[elem].FileName" height="200" width="200" /> <br />
-                        <button type="button" class="btn btn-primary" onclick="window.open('@itemArray[elem++].SourceUrl')">View</button>
-                        &nbsp;&nbsp;<a>Save</a>
+                        <div class="card border-success mb-3" style="max-width: 15rem;">
+                            <div class="card-header bg-transparent border-success text-center">
+                                <button type="button" class="btn btn-primary" onclick="window.open('@itemArray[elem].SourceUrl')">View</button>
+                                <input type="button" class="btn btn-primary"
+                                       onclick="savePicture('@itemArray[elem].SourceUrl','@itemArray[elem].FileName','@itemArray[elem].Height','@itemArray[elem].Width');" value="Save" />
+                            </div>
+                            <div class="card-body text-success">
+                                <img src="@itemArray[elem++].FileName" height="200" width="200" />
+                            </div>
+                            <div class="card-footer bg-transparent border-success text-center">@elem</div>
+                        </div>
                     </td>
                     <td>
-                        <img src="@itemArray[elem].FileName" height="200" width="200" /> <br />
-                        <button type="button" class="btn btn-primary" onclick="window.open('@itemArray[elem++].SourceUrl')">View</button>
-                        &nbsp;&nbsp;<a>Save</a>
+                        <div class="card border-success mb-3" style="max-width: 15rem;">
+                            <div class="card-header bg-transparent border-success text-center">
+                                <button type="button" class="btn btn-primary" onclick="window.open('@itemArray[elem].SourceUrl')">View</button>
+                                <input type="button" class="btn btn-primary"
+                                       onclick="savePicture('@itemArray[elem].SourceUrl','@itemArray[elem].FileName','@itemArray[elem].Height','@itemArray[elem].Width');" value="Save" />
+                            </div>
+                            <div class="card-body text-success">
+                                <img src="@itemArray[elem++].FileName" height="200" width="200" />
+                            </div>
+                            <div class="card-footer bg-transparent border-success text-center">@elem</div>
+                        </div>
                     </td>
                     <td>
-                        <img src="@itemArray[elem].FileName" height="200" width="200" /> <br />
-                        <button type="button" class="btn btn-primary" onclick="window.open('@itemArray[elem++].SourceUrl')">View</button>
-                        &nbsp;&nbsp;<a>Save</a>
+                        <div class="card border-success mb-3" style="max-width: 15rem;">
+                            <div class="card-header bg-transparent border-success text-center">
+                                <button type="button" class="btn btn-primary" onclick="window.open('@itemArray[elem].SourceUrl')">View</button>
+                                <input type="button" class="btn btn-primary"
+                                       onclick="savePicture('@itemArray[elem].SourceUrl','@itemArray[elem].FileName','@itemArray[elem].Height','@itemArray[elem].Width');" value="Save" />
+                            </div>
+                            <div class="card-body text-success">
+                                <img src="@itemArray[elem++].FileName" height="200" width="200" />
+                            </div>
+                            <div class="card-footer bg-transparent border-success text-center">@elem</div>
+                        </div>
                     </td>
-
                 </tr>
             }
         }
@@ -87,3 +124,9 @@
     </div>
 </div>
 
+<script type="text/javascript">
+    function savePicture(urlSource, fileName, height, width) {
+        var params = "SourceUrl=" + urlSource + "&FileName=" + fileName + "&Height=" + height + "&Width=" + width;
+        window.open("/Picture/SavePicture?"+params);
+    }
+</script>

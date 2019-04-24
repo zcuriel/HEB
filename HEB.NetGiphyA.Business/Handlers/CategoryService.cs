@@ -16,7 +16,7 @@ namespace HEB.NetGiphyA.Business.Handlers
             _dbContext = dbContext;
         }
 
-        public void AddEditCategory(Category category)
+        public int AddEditCategory(Category category)
         {
             if (category.CategoryId > 0)
             {
@@ -28,6 +28,7 @@ namespace HEB.NetGiphyA.Business.Handlers
                 _dbContext.Add(category);
             }            
             _dbContext.SaveChanges();
+            return category.CategoryId;
         }
 
         public void DeleteCategory(int categoryId)

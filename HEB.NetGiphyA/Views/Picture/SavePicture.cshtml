@@ -1,0 +1,38 @@
+﻿@model PictureCategoryViewModel
+@{
+    ViewBag.Title = "HEB - Save my Gifs";
+}
+<div class="row" style="padding-top:50px">
+    <h2> Save Animated Gif to My Gifs</h2>
+</div>
+<div class="container" style="border: 2px solid grey; padding-bottom:15px; padding-top:10px;">
+    <form method="post" asp-controller="Picture" asp-action="Save">
+        <div class="form-group">            
+            <input type="hidden" asp-for="Picture.PictureId" value="0" />
+            <input type="hidden" asp-for="Picture.SourceUrl" />
+            <input type="hidden" asp-for="Picture.FileName" />
+            <input type="hidden" asp-for="Picture.Height" />
+            <input type="hidden" asp-for="Picture.Width" />            
+            <label asp-for="Picture.Name" style="text-shadow:none;"></label> :
+            <input type="text" class="form-control" asp-for="Picture.Name" style="color:black;font-size:large;" placeholder="Picture name">
+            <span asp-validation-for="Picture.Name" style="font-size:initial; text-shadow:none;"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Picture.Description" style="text-shadow:none;"></label> :
+            <input type="text" class="form-control" asp-for="Picture.Description" style="color:black;font-size:large;" placeholder="Picture description">
+        </div>
+        <div class="form-group">
+            <label for="categoryLbl" style="text-shadow:none;">Category : </label>
+            <select asp-for="Picture.CategoryId" class="form-control" style="color:black;font-size:large;">
+                @foreach (var item in Model.UserCategories)
+                {
+                    <option value="@item.CategoryId">@item.Name</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <input type="reset" class="btn btn-primary" />
+            <input type="submit" class="btn btn-primary" />
+        </div>
+    </form>
+</div>

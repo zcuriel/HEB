@@ -1,9 +1,69 @@
-﻿@model Picture
+﻿@model MyGifsViewModel
 @{
-    ViewBag.Title = "HEB - My Gifs";
+    ViewBag.Title = "HEB - My Giphys";
 }
 
-<div class="row" style="padding-top:50px">
-    <h2> Save Animated Gifs</h2>
+<div class="row" style="padding-top:20px">
+    <h2> My Giphys by category </h2>
 </div>
-<div><a asp-controller="Category" asp-action="Index">Categories</a></div>
+<div class="container">
+    @{
+        string alertType = "alert-danger";
+        @if (ViewBag.Error == true)
+        {
+            <div class="alert @alertType" role="alert">
+                @ViewBag.Message
+            </div>
+        }
+    }
+</div>
+
+<div class="container">
+    <a class="btn btn-primary" asp-controller="Category" asp-action="AddEdit">Add New Category</a>
+    <p style="font-size:xx-small">&nbsp;</p>
+</div>
+@foreach (var item in Model.ListOfCategorizedPictures)
+{
+    <div class="card container">
+        <h4 class="card-header" style="background-color:#0094ff">
+            Category Name: @item.Category.Name
+            <a class="btn btn-secondary" asp-controller="Category" asp-action="AddEdit" asp-route-id="@item.Category.CategoryId">Edit</a>
+            @if (item.Pictures.Pictures.Count < 1)
+            {
+                <input type="button" class="btn btn-secondary" onclick="confirmCategoryDeletion(@item.Category.CategoryId, '@item.Category.Name');" value="Delete" />                
+            }
+        </h4>
+        <div class="card-body">
+            <h5 class="card-title">Category Description: @item.Category.Description</h5>
+            <hr />
+            @foreach (var item2 in item.Pictures.Pictures)
+            {
+                <p class="card-text">
+                    Picture: @item2.Name <br />
+                    Description: @item2.Description <br />
+                    <a asp-action="Edit" asp-route-id="@item2.PictureId" class="btn btn-secondary">Edit</a> &nbsp;
+                    <input type="button" class="btn btn-secondary" onclick="confirmDeletion(@item2.PictureId, '@item2.Name', '@item.Category.Name');" value="Delete" />
+                </p>
+                <hr />
+            }
+        </div>
+    </div>
+    <p style="font-size:xx-small">&nbsp;</p>
+}
+<script type="text/javascript">
+    function confirmDeletion(pictureId, pictureName, categoryName) {
+        var retVal = confirm("Do you want to delete the picture '" + pictureName + "' from the category '" + categoryName + "' ?");
+        if (retVal == true) {
+            window.location = "/Picture/Delete/" + pictureId;
+        }
+    }
+
+    function confirmCategoryDeletion(categoryId,categoryName) {
+        var retVal = confirm("Do you want to delete the category '" + categoryName + "' ?");
+        if (retVal == true) {
+            window.location = "/Category/Delete/" + categoryId;
+        }
+    }
+
+</script>
+

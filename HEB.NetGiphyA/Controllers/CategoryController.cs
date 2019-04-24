@@ -96,7 +96,7 @@ namespace HEB.NetGiphyA.Controllers
                     _categoryService.AddEditCategory(catDb);
                     ViewBag.IsError = "false";
                     ViewBag.Message = "Category added/updated sucessfully!";
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction("Index","Picture");
                 }
                 else
                 {
@@ -107,7 +107,7 @@ namespace HEB.NetGiphyA.Controllers
             {
                 ViewBag.IsError = true;
                 ViewBag.Message = $"Unexpected error ocurred while Saving the Category for user: '{GetUserEmail()}'. Try again later!";
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Picture");
             }
 
         }

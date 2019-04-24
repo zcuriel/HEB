@@ -1,0 +1,16 @@
+﻿@model Picture
+
+
+<td>
+    <div class="card border-success mb-3" style="max-width: 15rem;">
+        <div class="card-header bg-transparent border-success text-center">
+            <button type="button" class="btn btn-primary" onclick="window.open('Model.SourceUrl')">View</button>
+            <input type="button" class="btn btn-primary"
+                   onclick="savePicture('@Model.SourceUrl','@Model.FileName','@Model.Height','@Model.Width');" value="Save" />
+        </div>
+        <div class="card-body text-success">
+            <img src="@Model.FileName" height="200" width="200" />
+        </div>
+        <div class="card-footer bg-transparent border-success text-center"></div>
+    </div>
+</td>

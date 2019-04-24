@@ -30,7 +30,7 @@ namespace HEB.NetGiphyA.Data.Migrations
                 {
                     PictureId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CategoryId = table.Column<int>(nullable: true),
+                    CategoryId = table.Column<int>(nullable: false),
                     Description = table.Column<string>(maxLength: 250, nullable: true),
                     FileName = table.Column<string>(maxLength: 250, nullable: true),
                     Height = table.Column<int>(nullable: false),
@@ -43,27 +43,16 @@ namespace HEB.NetGiphyA.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pictures", x => x.PictureId);
-                    table.ForeignKey(
-                        name: "FK_Pictures_Categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
-                        principalColumn: "CategoryId",
-                        onDelete: ReferentialAction.Restrict);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Pictures_CategoryId",
-                table: "Pictures",
-                column: "CategoryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Pictures");
+                name: "Categories");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "Pictures");
         }
     }
 }

@@ -10,21 +10,14 @@
 </head>
 <body>
 
-    <ul class="nav nav-pills nav-fill">
-        <li class="nav-item">
-            <a class="nav-link" href="/">Home</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" asp-controller="SearchGifs" asp-action="Index">Search Gifs</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" asp-controller="Picture" asp-action="Index">My Gifs</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-        </li>
-    </ul>
-
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item" style="letter-spacing: 1px; font-size:large; text-shadow: 2px 1px black;"><a href="/">Home</a></li>
+            <li class="breadcrumb-item" style="letter-spacing: 1px; font-size:large; text-shadow: 2px 1px black;"><a asp-controller="SearchGifs" asp-action="Index">Search Giphys</a></li>
+            <li class="breadcrumb-item" style="letter-spacing: 1px; font-size:large; text-shadow: 2px 1px black;"><a asp-controller="Picture" asp-action="Index">My Giphys</a></li>
+            <li class="breadcrumb-item" style="letter-spacing: 1px; font-size:large; text-shadow: 2px 1px black;"><a asp-controller="About" asp-action="Index">About</a></li>
+        </ol>
+    </nav>
 
     <div class="container">
         <div class="row">

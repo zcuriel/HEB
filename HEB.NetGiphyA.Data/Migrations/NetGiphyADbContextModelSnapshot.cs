@@ -44,7 +44,7 @@ namespace HEB.NetGiphyA.Data.Migrations
                     b.Property<int>("PictureId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("CategoryId");
+                    b.Property<int>("CategoryId");
 
                     b.Property<string>("Description")
                         .HasMaxLength(250);
@@ -69,16 +69,7 @@ namespace HEB.NetGiphyA.Data.Migrations
 
                     b.HasKey("PictureId");
 
-                    b.HasIndex("CategoryId");
-
                     b.ToTable("Pictures");
-                });
-
-            modelBuilder.Entity("HEB.NetGiphyA.Data.Objects.Picture", b =>
-                {
-                    b.HasOne("HEB.NetGiphyA.Data.Objects.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId");
                 });
 #pragma warning restore 612, 618
         }

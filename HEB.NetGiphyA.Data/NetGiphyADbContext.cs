@@ -15,5 +15,6 @@ namespace HEB.NetGiphyA.Data
 
         public DbSet<Picture> Pictures { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public object Configuration { get; set; }
     }
 }

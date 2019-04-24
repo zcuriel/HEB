@@ -46,7 +46,6 @@ namespace HEB.NetGiphyA.Controllers
                             {
                                 SourceUrl = item.Images?.OriginalStill?.Url,
                                 FileName = item.Images?.Downsized?.Url,
-                                Size = Convert.ToInt32(item.Images?.Downsized?.Size),
                                 Height = Convert.ToInt32(item.Images?.Downsized?.Height),
                                 Width = Convert.ToInt32(item.Images?.Downsized?.Width)
                             });

@@ -11,7 +11,8 @@ namespace HEB.NetGiphyA.Data.Objects
         [Required]
         public string UserEmail { get; set; }
 
-        public Category Category { get; set; }
+        [Required]
+        public int CategoryId { get; set; }
 
         [MaxLength(50)]
         public string Name { get; set; }

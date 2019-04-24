@@ -1,20 +1,38 @@
-﻿using HEB.NetGiphyA.Data.Objects;
-using HEB.NetGiphyA.Business.Interfaces;
+﻿using HEB.NetGiphyA.Business.Interfaces;
+using HEB.NetGiphyA.Data;
+using HEB.NetGiphyA.Data.Objects;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HEB.NetGiphyA.Business.Handlers
 {
     public class PictureService : IPictureService
     {
-        public void AddEditGifAnimatedToDB(Picture picture)
+        private NetGiphyADbContext _pictureContext;
+
+        public PictureService(NetGiphyADbContext pictureContext)
         {
-            throw new NotImplementedException();
+            _pictureContext = pictureContext;
         }
 
-        public void DeleteGifAnimetedFromDB(Picture picture)
+        public void AddGifAnimatedToDB(Picture picture)
         {
-            throw new NotImplementedException();
+            _pictureContext.Add(picture);
+            _pictureContext.SaveChanges();            
+        }
+
+        public void DeleteGifAnimetedFromDB(int pictureId)
+        {
+            _pictureContext.Remove(new Picture() { PictureId = pictureId });
+            _pictureContext.SaveChanges();
+        }
+
+        public void EditGifAnimatedToDB(Picture picture)
+        {
+            _pictureContext.Entry(picture).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _pictureContext.SaveChanges();
         }
 
         public IEnumerable<Picture> GetAllGifsByUser(string userId)
@@ -22,9 +40,27 @@ namespace HEB.NetGiphyA.Business.Handlers
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Picture> GetAllGifsByUserAndCategory(string userId, int categoryId)
+        public IEnumerable<Picture> GetAllGifsByUserAndCategory(string userEmail, int categoryId)
         {
-            throw new NotImplementedException();
+            return _pictureContext.Pictures.Where(p => p.UserEmail == userEmail && p.CategoryId == categoryId).OrderBy(p => p.Name);
+        }
+
+        public Picture GetPictureByUserAndId(string userEmail, int pictureId)
+        {
+            return _pictureContext.Pictures.Where(p => p.UserEmail == userEmail && p.PictureId == pictureId).FirstOrDefault();
+        }
+
+        public void UpdateGifAnimatedToDB(Picture picture)
+        {
+            // Update request
+            var entity = _pictureContext.Pictures.Find(picture.PictureId);
+
+            // Only the following fields are allowed to modify in the page
+            entity.CategoryId = picture.CategoryId;
+            entity.Name = picture.Name;
+            entity.Description = picture.Description;
+
+            _pictureContext.SaveChanges();
         }
     }
 }

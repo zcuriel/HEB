@@ -15,21 +15,40 @@ namespace HEB.NetGiphyA.Business.Interfaces
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="userEmail"></param>
         /// <param name="categoryId"></param>
         /// <returns></returns>
-        IEnumerable<Picture> GetAllGifsByUserAndCategory(string userId, int categoryId);
+        IEnumerable<Picture> GetAllGifsByUserAndCategory(string userEmail, int categoryId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pictureId"></param>
+        /// <returns></returns>
+        Picture GetPictureByUserAndId(string userEmail, int pictureId);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="picture"></param>
-        void AddEditGifAnimatedToDB(Picture picture);
+        void AddGifAnimatedToDB(Picture picture);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="picture"></param>
-        void DeleteGifAnimetedFromDB(Picture picture);
+        void EditGifAnimatedToDB(Picture picture);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pictureId"></param>
+        void DeleteGifAnimetedFromDB(int pictureId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="picture"></param>
+        void UpdateGifAnimatedToDB(Picture picture);
     }
 }

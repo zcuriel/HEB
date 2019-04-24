@@ -1,12 +1,9 @@
 ﻿body {
-    padding-top: 10px;
-    font-family: 'Bernard MT Condensed';
-    font-size: large;
-    letter-spacing: 2px;
-    background-image: url('/images/pattern4.jpg');
+    font-size: initial;
+    font-family: 'Bernard MT Condensed';    
+    background-image: url('/images/pattern22.jpg');
     background-repeat: initial;
     color: black;
-    text-shadow: 2px 1px black;
 }
 
 input[type=text] {
@@ -33,7 +30,7 @@ body-content {
 
 .h1cust {
     font-family: Algerian;
-    padding-top: 75px;
+    padding-top: 15px;
     font-size: 60px;
     text-align: center;
     word-spacing: 3px;
@@ -44,6 +41,6 @@ body-content {
     font-family: Algerian;
     font-size: 35px;
     text-align: center;
-    letter-spacing: 15px;
-    text-shadow: 4px 3px #0094ff;
+    letter-spacing: 10px;
+    text-shadow: 2px 1px 1px #0094ff;
 }
