@@ -27,6 +27,7 @@ To correctly install the application and make it run successfully there are some
 * For Azure Active Directory, the application uses my free suscription. Depending on your business needs, you have the flexibility to decide which audience to sign-in to your application:
 	- If you are a Line of Business (LOB) developer, you'll want to [sign-in users in your organization] with their work or school accounts --- This is the case for the Challenge project. Make sure you have an microsoft account to register yourself to the app and send me the account thus I can add you as a user of my account.
 	- If you decide to change the suscription for another more professional services account, please make sure you setup the config files for the new account. Go the appsetting and fill up the correct data for ClientId and Authority accordingly.
+* For the Email. The app use the Gmail service, so it is neccesary to have an account there too, just to be able to notify the users and admins of its account created. Admins take that email and add the user in the Azure portal to give access to the app.  For this email account "Turn On" Less Secure App access.	
 
 
 
