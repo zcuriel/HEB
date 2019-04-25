@@ -168,6 +168,7 @@ namespace HEB.NetGiphyA.Controllers
         /// <param name="picture"></param>
         /// <returns></returns>
         [HttpPost]
+        [AutoValidateAntiforgeryToken]
         public IActionResult Save(ObjView.Picture picture)
         {
             try

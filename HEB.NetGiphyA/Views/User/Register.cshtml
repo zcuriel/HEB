@@ -1,0 +1,27 @@
+﻿@model User
+@{
+    ViewBag.Title = "HEB - Register";
+}
+
+<div class="row" style="padding-top:50px">
+    <h2> User Registration</h2>
+</div>
+<div class="container" style="border: 2px solid grey; padding-bottom:15px; padding-top:10px;">
+    <form method="post" asp-controller="User" asp-action="Save">
+        <div class="form-group">
+            <input type="hidden" asp-for="UserId" value="0" />
+            <label asp-for="UserEmail" style="text-shadow:none;"></label> :
+            <input type="text" class="form-control" asp-for="UserEmail" style="color:black;font-size:large;" placeholder="Email input">
+            <span asp-validation-for="UserEmail" style="font-size:initial; text-shadow:none;"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Name" style="text-shadow:none;"></label> :
+            <input type="text" class="form-control" asp-for="Name" style="color:black;font-size:large;" placeholder="Name input">
+            <span asp-validation-for="Name" style="font-size:initial; text-shadow:none;"></span>
+        </div>
+        <div class="form-group">
+            <input type="reset" class="btn btn-primary" />
+            <input type="submit" class="btn btn-primary" />
+        </div>
+    </form>
+</div>

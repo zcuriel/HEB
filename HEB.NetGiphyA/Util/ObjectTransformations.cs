@@ -5,7 +5,6 @@ namespace HEB.NetGiphyA.Util
 {
     public static class ObjectTransformations
     {
-
         /// <summary>
         /// Transform a picture database object to a Category view Obj
         /// </summary>
@@ -31,7 +30,6 @@ namespace HEB.NetGiphyA.Util
             return newPicture; 
         }
 
-
         /// <summary>
         /// Transform a category database object to a Category view Obj
         /// </summary>
@@ -53,6 +51,26 @@ namespace HEB.NetGiphyA.Util
             return newCategory;
         }
 
+        /// <summary>
+        /// Transform a user database object to a User view Obj
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public static ViewObj.User TransformDbtoViewObj(DbObj.User user)
+        {
+            ViewObj.User newUser = null;
+            if (user != null)
+            {
+                newUser = new ViewObj.User
+                {
+                    UserId = user.UserId,
+                    UserEmail = user.UserEmail,
+                    Name = user.Name
+                };
+            }
+
+            return newUser;
+        }
 
         /// <summary>
         /// Transform a picture view object to a Category EF Obj
@@ -81,7 +99,6 @@ namespace HEB.NetGiphyA.Util
             return newPicture;
         }
 
-
         /// <summary>
         /// Transform a category view object to a Category EF Obj
         /// </summary>
@@ -102,5 +119,27 @@ namespace HEB.NetGiphyA.Util
             }
             return newCategory;
         }
+
+        /// <summary>
+        /// Transform a user view object to a User EF Obj
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public static DbObj.User TransformViewToDbObj(ViewObj.User user)
+        {
+            DbObj.User newUser = null;
+            if (user != null)
+            {
+                newUser = new DbObj.User
+                {
+                    UserId = user.UserId,
+                    UserEmail = user.UserEmail,
+                    Name = user.Name
+                };
+            }
+
+            return newUser;
+        }
+
     }
 }
