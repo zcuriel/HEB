@@ -6,6 +6,17 @@
 <div class="row" style="padding-top:50px">
     <h2> User Registration</h2>
 </div>
+<div class="container">
+    @{
+        string alertType = "alert-danger";
+        @if (ViewBag.IsError == true)
+        {
+            <div class="alert @alertType" role="alert">
+                @ViewBag.Message
+            </div>
+        }
+    }
+</div>
 <div class="container" style="border: 2px solid grey; padding-bottom:15px; padding-top:10px;">
     <form method="post" asp-controller="User" asp-action="Save">
         <div class="form-group">

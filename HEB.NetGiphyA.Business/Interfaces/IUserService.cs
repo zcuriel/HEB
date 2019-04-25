@@ -10,5 +10,13 @@ namespace HEB.NetGiphyA.Business.Interfaces
         /// </summary>
         /// <param name="user"></param>
         void AddUserRegistration(User user);
+
+
+        /// <summary>
+        /// Method definition to Verify if a User already registered to our app.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        bool VerifyRegisteredUser(string userEmail);
     }
 }

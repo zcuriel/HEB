@@ -9,7 +9,7 @@
 <div class="container">
     @{
         string alertType = "alert-danger";
-        @if (ViewBag.Error == true)
+        @if (ViewBag.IsError == "true")
         {
             <div class="alert @alertType" role="alert">
                 @ViewBag.Message

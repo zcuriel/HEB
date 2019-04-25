@@ -1,6 +1,7 @@
 ﻿using HEB.NetGiphyA.Business.Interfaces;
 using HEB.NetGiphyA.Data;
 using HEB.NetGiphyA.Data.Objects;
+using System.Linq;
 
 namespace HEB.NetGiphyA.Business.Handlers
 {
@@ -21,6 +22,18 @@ namespace HEB.NetGiphyA.Business.Handlers
         {
             _userContext.Add(user);
             _userContext.SaveChanges();
+        }
+
+
+        /// <summary>
+        /// Method implementation to verify if a user has registered to the app previously
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        bool IUserService.VerifyRegisteredUser(string userEmail)
+        {
+            var objUser = _userContext.Users.Where(u => u.UserEmail == userEmail).FirstOrDefault();
+            return (objUser != null);           // Return true if the user is already registered       
         }
     }
 }
