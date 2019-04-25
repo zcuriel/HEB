@@ -1,5 +1,5 @@
-﻿<!DOCTYPE html>
-
+﻿@using Microsoft.AspNetCore.Http.Extensions
+<!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -16,6 +16,17 @@
             <li class="breadcrumb-item" style="letter-spacing: 1px; font-size:large; text-shadow: 2px 1px black;"><a asp-controller="SearchGifs" asp-action="Index">Search Giphys</a></li>
             <li class="breadcrumb-item" style="letter-spacing: 1px; font-size:large; text-shadow: 2px 1px black;"><a asp-controller="Picture" asp-action="Index">My Giphys</a></li>
             <li class="breadcrumb-item" style="letter-spacing: 1px; font-size:large; text-shadow: 2px 1px black;"><a asp-controller="About" asp-action="Index">About</a></li>
+            <li class="breadcrumb-item nav-right" style="letter-spacing: 1px; font-size:large; text-shadow: 2px 1px black;">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a asp-controller="Authorize" asp-route-returnUrl="@Context.Request.GetEncodedPathAndQuery()" asp-action="Logout">Logout</a>
+                }
+                else
+                {
+                    <a asp-controller="Authorize" asp-action="Login">Login</a>
+                }
+
+            </li>
         </ol>
     </nav>
 

@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "Logout";
+}
+
+<div class="container" style="border: 2px solid grey; padding-bottom:15px; padding-top:10px;">
+    <form method="post" asp-action="Logout">
+        <div class="form-group text-center">
+            <h3> Do you want to log out?</h3><br />
+            
+            <button type="submit" class="btn btn-lg btn-danger">Yes</button>
+            <a asp-action="Cancel" asp-route-returnUrl="@ViewBag.ReturnUrl" class="btn btn-lg btn-warning">Cancel</a>
+        </div>
+    </form>
+</div>
