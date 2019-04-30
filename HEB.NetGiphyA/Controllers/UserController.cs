@@ -42,11 +42,11 @@ namespace HEB.NetGiphyA.Controllers
                     {
                         var userDb = ObjectTransformations.TransformViewToDbObj(user);
 
-                        _userService.AddUserRegistration(userDb);
-                        ViewBag.IsError = "false";
-                        ViewBag.Message = "User registered sucessfully!";
                         // Send Email to the User & Admin
                         Email.sendEmail(user.UserEmail, user.Name);
+                        _userService.AddUserRegistration(userDb);
+                        ViewBag.IsError = "false";
+                        ViewBag.Message = "User registered sucessfully!";                        
                         return View();
                     } else
                     {

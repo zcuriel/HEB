@@ -3,20 +3,31 @@
 }
 
 <div class="jumbotron container">
-    <p class="h1cust"About to H-E-B &amp; Me !!!</p>
+    <p class="h1cust" About to H-E-B &amp; Me !!!</p>
     <p class="h2cust">&copy; NetGiphyA &copy;</p>
     <hr class="my-4">
     <p> Welcome to the H-E-B Senior Developer Programming Challenge</p>
-    <p>Thank you for your interest in a career in software development at H-E-B. This challenge will be used to 
-    assess your technical skills. We will be looking for your utilization of design patterns, best practices, and the
-    simplicity and quality of your code.
+    <p>
+        Thank you for your interest in a career in software development at H-E-B. This challenge will be used to
+        assess your technical skills. We will be looking for your utilization of design patterns, best practices, and the
+        simplicity and quality of your code.
     </p>
-    <p>There is no time limit, but it should take no longer than a week to complete this challenge. When your
-    solution is completed, upload the project to GitHub and send a link to sadc@heb.com. If selected to
-    move forward in the interview process, you will be expected to demo your application in person with
-    your own laptop, and you will review your entire solution with several H-E-B developers. Please
-    anticipate providing details regarding not only your code, but your overall design decisions.</p>
+    <p>
+        There is no time limit, but it should take no longer than a week to complete this challenge. When your
+        solution is completed, upload the project to GitHub and send a link to sadc@heb.com. If selected to
+        move forward in the interview process, you will be expected to demo your application in person with
+        your own laptop, and you will review your entire solution with several H-E-B developers. Please
+        anticipate providing details regarding not only your code, but your overall design decisions.
+    </p>
     <p> We sincerely appreciate you taking the time to complete this challenge, and wish you the best of luck!</p>
-    <a class="btn btn-primary btn-lg" asp-controller="User" asp-action="Register" role="button">Let's start!</a>
+    @if (User.Identity.IsAuthenticated)
+    {
+    <a class="btn btn-primary btn-lg" asp-controller="SearchGifs" asp-action="Index" role="button">Let's start!</a>
+    }
+    else
+    {
+        <a class="btn btn-primary btn-lg" asp-controller="User" asp-action="Register" role="button">Let's start!</a>
+    }
+    
 </div>
 
